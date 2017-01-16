@@ -1,9 +1,15 @@
 var gulp = require('gulp');
 var webpack = require("webpack");
 var WebpackDevServer = require("webpack-dev-server");
-var webpackConfig = require("./webpack.config.js");
+var webpackConfig = null;
 var gutil = require('gulp-util');
 var shell = require('gulp-shell');
+
+if (process.env.NODE_ENV === 'production') {
+  webpackConfig = require("./webpack.production.config.js");
+} else {
+  webpackConfig = require("./webpack.config.js");
+}
 
 gulp.task('copy-assets', function() {
   return gulp.src('src/static/**').pipe(gulp.dest('public'));
