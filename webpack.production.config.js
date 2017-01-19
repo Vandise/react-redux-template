@@ -1,5 +1,6 @@
 var path    = require('path');
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -22,6 +23,9 @@ module.exports = {
         NODE_ENV: JSON.stringify("production")
       }
     }),
+    new CopyWebpackPlugin([
+      { from: './src/static/', to: path.join(__dirname, "public")},
+    ]),
     new webpack.IgnorePlugin(/vertx/),
     new webpack.IgnorePlugin(/un~$/),
     new webpack.optimize.DedupePlugin(),

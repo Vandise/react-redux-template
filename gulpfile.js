@@ -11,10 +11,6 @@ if (process.env.NODE_ENV === 'production') {
   webpackConfig = require("./webpack.config.js");
 }
 
-gulp.task('copy-assets', function() {
-  return gulp.src('src/static/**').pipe(gulp.dest('public'));
-});
-
 gulp.task("webpack:build", function(callback) {
   return webpack(webpackConfig, function(err, stats) {
     if (err) {
@@ -65,10 +61,10 @@ gulp.task('default', function() {
   return gulp.start('build');
 });
 
-gulp.task('build', ['webpack:build', 'copy-assets']);
+gulp.task('build', ['webpack:build']);
 
-gulp.task('watch', ['copy-assets', 'webpack-dev-server'], function() {
-  return gulp.watch(['assets/**'], ['copy-assets']);
+gulp.task('watch', ['webpack-dev-server'], function() {
+  return gulp.watch(['assets/**']);
 });
 
 gulp.task('test', shell.task(['./node_modules/.bin/mocha']));

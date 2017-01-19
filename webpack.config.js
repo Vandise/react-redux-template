@@ -1,5 +1,6 @@
 var path    = require('path');
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -17,6 +18,9 @@ module.exports = {
     modulesDirectories: ['node_modules']
   },
   plugins: [
+    new CopyWebpackPlugin([
+      { from: './src/static/', to: path.join(__dirname, "public")},
+    ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.IgnorePlugin(/vertx/)
